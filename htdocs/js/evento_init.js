@@ -10,7 +10,7 @@ $.ajax({
 		res = JSON.parse(resJ);
 		// evento principale
 		var focusSource = new ol.source.Vector({
-		  features: new ol.format.GeoJSON().readFeatures(res[0], {featureProjection: 'EPSG:4326'})
+		  features: new ol.format.GeoJSON().readFeatures(res[0], {featureProjection: 'EPSG:3857'})
 		});
 		var creaFrecciaFocus = function (feature) {
 			var geometry = feature.getGeometry();
@@ -53,7 +53,7 @@ $.ajax({
 		});
 		// altri eventi
 		var otherSource = new ol.source.Vector({
-		  features: new ol.format.GeoJSON().readFeatures(res[1], {featureProjection: 'EPSG:4326'})
+		  features: new ol.format.GeoJSON().readFeatures(res[1], {featureProjection: 'EPSG:3857'})
 		});
 		var creaFrecciaOther = function (feature) {
 			var geometry = feature.getGeometry();
@@ -113,7 +113,7 @@ $.ajax({
 			],
 			view: new ol.View({
 				padding: [225, 225, 225, 225],
-				projection: 'EPSG:4326'
+				projection: 'EPSG:3857'
 			})
 		});
 		$('#map').data('map', map);

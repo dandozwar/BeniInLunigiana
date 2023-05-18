@@ -10,7 +10,7 @@ if (tipoGeom == 1) { // mappa dei punti
 			res = JSON.parse(resJ);
 			// geojson
 			var vectorSource = new ol.source.Vector({
-			  features: new ol.format.GeoJSON().readFeatures(res, {featureProjection: 'EPSG:4326'})
+			  features: new ol.format.GeoJSON().readFeatures(res, {featureProjection: 'EPSG:3857'})
 			});
 			// vettori
 			var stile = new ol.style.Style({
@@ -49,7 +49,7 @@ if (tipoGeom == 1) { // mappa dei punti
 				],
 				view: new ol.View({
 					padding: [40, 40, 40, 40],
-					projection: 'EPSG:4326'
+					projection: 'EPSG:3857'
 				})
 			});
 			$('#map').data('map', map);
@@ -94,7 +94,7 @@ if (tipoGeom == 1) { // mappa dei punti
 			res = JSON.parse(resJ);
 			// geojson
 			var vectorSource = new ol.source.Vector({
-			  features: new ol.format.GeoJSON().readFeatures(res, {featureProjection: 'EPSG:4326'})
+			  features: new ol.format.GeoJSON().readFeatures(res, {featureProjection: 'EPSG:3857'})
 			});
 			// vettori
 			var stile = new ol.style.Style({
@@ -128,7 +128,7 @@ if (tipoGeom == 1) { // mappa dei punti
 				],
 				view: new ol.View({
 					padding: [40, 40, 40, 40],
-					projection: 'EPSG:4326'
+					projection: 'EPSG:3857'
 				})
 			});
 			$('#map').data('map', map);

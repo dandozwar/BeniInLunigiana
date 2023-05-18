@@ -8,7 +8,7 @@ function confermaLuogo() {
 		var nuovaFeature = layerNuovo.getSource().getFeatures()[0];
 		if (nuovaFeature != undefined) {
 			nuovaFeature.setProperties({'name': nomeNuovo.value});
-			var geoNuovo = new ol.format.GeoJSON().writeFeatureObject(nuovaFeature, { 'featureProjection': 'EPSG:4326'});
+			var geoNuovo = new ol.format.GeoJSON().writeFeatureObject(nuovaFeature, { 'featureProjection': 'EPSG:3857'});
 			var geoString = JSON.stringify(geoNuovo);
 			var dati = new FormData(document.getElementById('campi'));
 			dati.append('geoJSON', geoString);

@@ -77,7 +77,7 @@ function confermaGeog() {
 	if (nuovaFeature != undefined) {
 		var id = parseInt(window.location.search.substr(4));
 		nuovaFeature.setProperties({'name': id});
-		var geoNuovo = new ol.format.GeoJSON().writeFeatureObject(nuovaFeature, { 'featureProjection': 'EPSG:4326'});
+		var geoNuovo = new ol.format.GeoJSON().writeFeatureObject(nuovaFeature, { 'featureProjection': 'EPSG:3857'});
 		var geoString = JSON.stringify(geoNuovo);
 		var dati = new FormData();
 		dati.append('geoJSON', geoString);

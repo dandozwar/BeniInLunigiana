@@ -14,7 +14,7 @@ if (tipoGeom == 1) {
 			res = JSON.parse(resJ);
 				// luogo principale
 				var focusSource = new ol.source.Vector({
-				  features: new ol.format.GeoJSON().readFeatures(res[0], {featureProjection: 'EPSG:4326'})
+				  features: new ol.format.GeoJSON().readFeatures(res[0], {featureProjection: 'EPSG:3857'})
 				});
 				var stileFocus = new ol.style.Style({
 					image: new ol.style.Circle({
@@ -75,7 +75,7 @@ if (tipoGeom == 1) {
 					],
 					view: new ol.View({
 						padding: [225, 225, 225, 225],
-						projection: 'EPSG:4326'
+						projection: 'EPSG:3857'
 					})
 				});
 				$('#map').data('map', map);
@@ -95,7 +95,7 @@ if (tipoGeom == 1) {
 			res = JSON.parse(resJ);
 				// luogo principale
 				var focusSource = new ol.source.Vector({
-				  features: new ol.format.GeoJSON().readFeatures(res[0], {featureProjection: 'EPSG:4326'})
+				  features: new ol.format.GeoJSON().readFeatures(res[0], {featureProjection: 'EPSG:3857'})
 				});
 				var stileFocus = new ol.style.Style({
 					image: new ol.style.Circle({
@@ -117,7 +117,7 @@ if (tipoGeom == 1) {
 				});
 				// altri luoghi
 				var otherSource = new ol.source.Vector({
-				  features: new ol.format.GeoJSON().readFeatures(res[1], {featureProjection: 'EPSG:4326'})
+				  features: new ol.format.GeoJSON().readFeatures(res[1], {featureProjection: 'EPSG:3857'})
 				});
 				var otherFocus = new ol.style.Style({
 					image: new ol.style.Circle({
@@ -156,7 +156,7 @@ if (tipoGeom == 1) {
 					],
 					view: new ol.View({
 						padding: [225, 225, 225, 225],
-						projection: 'EPSG:4326'
+						projection: 'EPSG:3857'
 					})
 				});
 				$('#map').data('map', map);
