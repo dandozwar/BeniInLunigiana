@@ -1,0 +1,63 @@
+body {
+	margin: 0px;
+	padding: 0px;
+}
+
+header {
+	margin: 0.5vw;
+	text-align: center;
+}
+
+.legenda{
+	float:left;
+	display:block;
+	height: 80vh;
+	width: 55vw;
+	margin-left: 1.5vw;
+}
+
+.lista{
+	height: 67.5vh;
+	overflow: scroll;
+}
+
+.selezione{
+	height: 12.5vh;
+}
+
+.tendina {
+	visibility: hidden;
+	position: static;
+	display: inline-block;
+}
+
+.tendina_contenuto {
+	text-align: left;
+	display: none;
+	position: absolute;
+	background-color: white;
+	min-width: 160px;
+	box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.3);
+	z-index: 1;
+	width: 200px;
+	height: 200px;
+	overflow: scroll;
+}
+
+.tendina_contenuto div:hover {background-color: Gainsboro}
+
+.tendina:hover .tendina_contenuto {display: block;}
+
+.map {
+	float:left;
+	display:block;
+	height: 80vh;
+	width: 40vw;
+	margin-right: 1.5vw;
+}
+
+footer {
+	clear:both;
+	margin: 0.5vw;
+	text-align: center;
+}
