@@ -1,6 +1,6 @@
 # Beni in Lunigiana
 Progetto del Laboratorio di Cultura Digitale dell'Università di Pisa, 2018-2023.
-Team: Alessandro Cignoni, Chiara D'Anzi Gabriele Gabbani, Paolo Mogorovich, Enrica Salvatori.
+Team: Alessandro Cignoni, Chiara D'Anzi, Gabriele Gabbani, Paolo Mogorovich, Enrica Salvatori.
 
 Nato come:
 progetto di tesi magistrale in Informatica Umanistica di Maurizio Ricci e Lorenzo Alighieri, a.a. 2018/19.
