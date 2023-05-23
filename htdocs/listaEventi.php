@@ -14,7 +14,6 @@
 		<link rel='stylesheet' href='./css/stile.css'>
 		<script src='https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js'></script>
 		<script type='module' src='./js/listaEventi_init.js'></script>
-		<script src='./js/listaEventi.js'></script>
 	</head>
 	<body>
 		<header>
