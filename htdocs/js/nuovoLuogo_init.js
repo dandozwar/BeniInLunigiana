@@ -5,25 +5,31 @@ $.ajax({
 	type: "POST",
 	data: dati,
 	success: function (resJ) {
-		res = JSON.parse(resJ);
-		// geojson
-		var vectorSource = new ol.source.Vector({
-		  features: new ol.format.GeoJSON().readFeatures(res, {featureProjection: 'EPSG:3857'})
-		});
-		// vettori
-		var stile = new ol.style.Style({
-			stroke: new ol.style.Stroke({
-			  color: 'red',
-			  width: 1,
-			}),
-			fill: new ol.style.Fill({
-			  color: 'rgba(255, 0, 0, 0.1)',
-			}),
-		});
-		var vectorLayer = new ol.layer.Vector({
-		  source: vectorSource,
-		  style: stile
-		});
+		res = JSON.parse(JSON.parse(resJ));
+		if (res.features != null) { // controlla che il database contenga luoghi
+			// geojson
+			var vectorSource = new ol.source.Vector({
+				features: new ol.format.GeoJSON().readFeatures(res)
+			});
+			// vettori
+			var stile = new ol.style.Style({
+				stroke: new ol.style.Stroke({
+				  color: 'red',
+				  width: 1,
+				}),
+				fill: new ol.style.Fill({
+				  color: 'rgba(255, 0, 0, 0.1)',
+				}),
+			});
+			var vectorLayer = new ol.layer.Vector({
+			  source: vectorSource,
+			  style: stile
+			});
+		} else {
+			var vectorLayer = new ol.layer.Vector({
+				source: new ol.source.Vector({})
+			});
+		};
 		// scala
 		var lineaScala = new ol.control.ScaleLine({
 			bar: true,
@@ -41,6 +47,8 @@ $.ajax({
 				vectorLayer
 			],
 			view: new ol.View({
+				center: ol.proj.fromLonLat([10.1, 44.083333]), //Massa
+				zoom: 10,
 				padding: [40, 40, 40, 40],
 				projection: 'EPSG:3857'
 			})
@@ -65,8 +73,7 @@ $.ajax({
 				color: 'rgba(0, 255, 0, 0.1)',
 			}),
 		});
-		var vettoreNuovo = new ol.source.Vector({
-		});
+		var vettoreNuovo = new ol.source.Vector({});
 		var layerNuovo = new ol.layer.Vector({
 			source: vettoreNuovo,
 			style: stileNuovo
@@ -82,8 +89,10 @@ $.ajax({
 		map.addLayer(layerNuovo);
 		map.getInteractions().pop();
 		map.addInteraction(evtNuovo)
-		// view
-		map.getView().fit(vectorSource.getExtent());
+		if (res.features != null) {
+			// view
+			map.getView().fit(vectorSource.getExtent());	
+		};
 	},
 	cache: false,
 	contentType: false,

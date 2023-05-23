@@ -8,8 +8,9 @@ function confermaLuogo() {
 		var nuovaFeature = layerNuovo.getSource().getFeatures()[0];
 		if (nuovaFeature != undefined) {
 			nuovaFeature.setProperties({'name': nomeNuovo.value});
-			var geoNuovo = new ol.format.GeoJSON().writeFeatureObject(nuovaFeature, { 'featureProjection': 'EPSG:3857'});
+			var geoNuovo = new ol.format.GeoJSON().writeFeatureObject(nuovaFeature, {'featureProjection': 'EPSG:3857'});
 			var geoString = JSON.stringify(geoNuovo);
+			alert(geoString);
 			var dati = new FormData(document.getElementById('campi'));
 			dati.append('geoJSON', geoString);
 			$.ajax({
@@ -18,7 +19,9 @@ function confermaLuogo() {
 				data: dati,
 				success: function (resJ) {
 					alert(resJ);
-					window.location.replace('./listaLuoghi.php');
+					if (resJ == "Luogo inserito.") {
+						window.location.replace('./listaLuoghi.php');
+					};
 				},
 				cache: false,
 				contentType: false,

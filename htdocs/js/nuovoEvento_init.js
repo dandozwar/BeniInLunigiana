@@ -4,53 +4,59 @@ $.ajax({
 	url: "php/trovaEventi.php",
 	type: "POST",
 	data: dati,
-	success: function (resJ) {
-		res = JSON.parse(resJ);
-		// geojson
-		var vectorSource = new ol.source.Vector({
-		  features: new ol.format.GeoJSON().readFeatures(res, {featureProjection: 'EPSG:3857'})
-		});
-		// vettori
-		var creaFreccia = function (feature) {
-			var geometry = feature.getGeometry();
-			var stile = [
-				new ol.style.Style({
-					image: new ol.style.Circle({
-						fill: new ol.style.Fill({ color: 'rgba(255, 0, 0, 1)' }),
-						stroke: new ol.style.Stroke({ color: 'rgba(255, 0, 0, 1)', width: 2 }),
-						radius: 6
-					}),
-					stroke: new ol.style.Stroke({
-						color: 'rgba(255, 0, 0, 1)',
-						width: 2,
-					})
-				}),
-			];
-			// controllo: solo se la geometria è una linea
-			if (geometry.getType() == 'LineString') {
-				geometry.forEachSegment(function (start, end) {
-					var dx = end[0] - start[0];
-					var dy = end[1] - start[1];
-					var rotation = Math.atan2(dy, dx);
-					stile.push(
-						new ol.style.Style({
-							geometry: new ol.geom.Point(end),
-							image: new ol.style.Icon({
-								src: 'img/frecciaRossa.png',
-								anchor: [0.5, 0.5],
-								rotateWithView: true,
-								rotation: -rotation,
-							}),
+	success: function (resJ) { // controlla che il database contenga eventi
+		res = JSON.parse(JSON.parse(resJ));
+		if (res.features != null) { // controlla che il database contenga eventi
+			// geojson
+			var vectorSource = new ol.source.Vector({
+			  features: new ol.format.GeoJSON().readFeatures(res)
+			});
+			// vettori
+			var creaFreccia = function (feature) {
+				var geometry = feature.getGeometry();
+				var stile = [
+					new ol.style.Style({
+						image: new ol.style.Circle({
+							fill: new ol.style.Fill({ color: 'rgba(255, 0, 0, 1)' }),
+							stroke: new ol.style.Stroke({ color: 'rgba(255, 0, 0, 1)', width: 2 }),
+							radius: 6
+						}),
+						stroke: new ol.style.Stroke({
+							color: 'rgba(255, 0, 0, 1)',
+							width: 2,
 						})
-					);
-				});
+					}),
+				];
+				// controllo: solo se la geometria è una linea
+				if (geometry.getType() == 'LineString') {
+					geometry.forEachSegment(function (start, end) {
+						var dx = end[0] - start[0];
+						var dy = end[1] - start[1];
+						var rotation = Math.atan2(dy, dx);
+						stile.push(
+							new ol.style.Style({
+								geometry: new ol.geom.Point(end),
+								image: new ol.style.Icon({
+									src: 'img/frecciaRossa.png',
+									anchor: [0.5, 0.5],
+									rotateWithView: true,
+									rotation: -rotation,
+								}),
+							})
+						);
+					});
+				};
+				return stile;
 			};
-			return stile;
+			var vectorLayer = new ol.layer.Vector({
+			  source: vectorSource,
+			  style: creaFreccia
+			});
+		} else {
+			var vectorLayer = new ol.layer.Vector({
+				source: new ol.source.Vector({})
+			});
 		};
-		var vectorLayer = new ol.layer.Vector({
-		  source: vectorSource,
-		  style: creaFreccia
-		});
 		// scala
 		var lineaScala = new ol.control.ScaleLine({
 			bar: true,
@@ -68,13 +74,18 @@ $.ajax({
 				vectorLayer
 			],
 			view: new ol.View({
+				center: ol.proj.fromLonLat([10.1, 44.083333]), //Massa
+				zoom: 10,
 				padding: [40, 40, 40, 40],
 				projection: 'EPSG:3857'
 			})
 		});
 		$('#map').data('map', map);
-		// view
-		map.getView().fit(vectorSource.getExtent(), {maxZoom: 15});
+		
+		if (res.features != null) {
+			// view
+			map.getView().fit(vectorSource.getExtent(), {maxZoom: 15});
+		};
 	},
 	cache: false,
 	contentType: false,

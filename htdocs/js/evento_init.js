@@ -7,10 +7,11 @@ $.ajax({
 	type: "POST",
 	data: dati,
 	success: function (resJ) {
-		res = JSON.parse(resJ);
+		alert(resJ);
+		res = JSON.parse(JSON.parse(resJ));
 		// evento principale
 		var focusSource = new ol.source.Vector({
-		  features: new ol.format.GeoJSON().readFeatures(res[0], {featureProjection: 'EPSG:3857'})
+			features: new ol.format.GeoJSON().readFeatures(res['features'][0])
 		});
 		var creaFrecciaFocus = function (feature) {
 			var geometry = feature.getGeometry();
@@ -52,8 +53,9 @@ $.ajax({
 		  style: creaFrecciaFocus
 		});
 		// altri eventi
+		res['features'].shift(); // elimina il luogo già rappresentato
 		var otherSource = new ol.source.Vector({
-		  features: new ol.format.GeoJSON().readFeatures(res[1], {featureProjection: 'EPSG:3857'})
+			features: new ol.format.GeoJSON().readFeatures(res)
 		});
 		var creaFrecciaOther = function (feature) {
 			var geometry = feature.getGeometry();
