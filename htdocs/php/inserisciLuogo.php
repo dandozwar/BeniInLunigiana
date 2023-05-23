@@ -11,12 +11,11 @@
 	$q = pg_prepare($conn, 'inserisciLuogo',
 					'INSERT INTO luogo(identificazione, descrizione, meo, mec, toponimo, esistenza, comune,
 										bibliografia, note, area, punto, schedatore, stato)
-					VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, ST_GeomFromGeoJSON($10),
-							ST_PointOnSurface(ST_GeomFromGeoJSON($10)), $11, $12)');
+					VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, ST_Transform(ST_GeomFromGeoJSON($10), 3857),
+							ST_PointOnSurface(ST_Transform(ST_GeomFromGeoJSON($10), 3857)), $11, $12)');
 	$q = pg_execute($conn, 'inserisciLuogo', array($_POST['nuovNom'], $_POST['nuovDes'], $_POST['nuovMEO'],
 													$_POST['nuovMEC'], $_POST['nuovEsi'], $_POST['nuovTop'],
 													$_POST['nuovCom'], $_POST['nuovBib'], $_POST['nuovNot'],
 													$geom, $user, $stato));
 	echo 'Luogo inserito.';
-	print_r($_POST);
 ?>
