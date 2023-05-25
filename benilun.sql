@@ -293,6 +293,7 @@ COPY public.spatial_ref_sys (srid, auth_name, auth_srid, srtext, proj4text) FROM
 --
 
 COPY public.utente (id, nome, cognome, ruolo) FROM stdin;
+acignoni	Alessandro	Cignoni	revisore
 \.
 
 
