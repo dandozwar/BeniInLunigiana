@@ -10,5 +10,5 @@ Beni in Lunigiana (BeniLun) è un sito l'acquisizione e l'analisi di beni cultur
 
 # Installazione
 Per visualizzare il sito in locale è necessario costruire un'architettura WAPP con Apache 2.4 o superiore, PHP 7.4.27 o superiore, PostgreSQL 14.2 o superiore con l'estensione PostGIS 3.3 o superiore.
-Importare su pgAdmin4 il file benilun.sql.
+Eseguire le query contenute in Benilun.sql sul Query Tool di pgAdmin4.
 Scaricare la cartella htdocs e aggiungerne il contenuto alla cartella htdocs di Apache.
